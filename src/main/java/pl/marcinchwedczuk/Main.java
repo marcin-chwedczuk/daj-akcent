@@ -23,7 +23,7 @@ public class Main {
     private static final int ERRORCODE_READING_DICTIONARY_FAILED = 4;
 
     public static void main(String[] args) {
-        args = new String[] { "/Users/mc/dev/daj-akcent/test-data/ru1.epub" };
+        // args = new String[] { "/Users/mc/dev/daj-akcent/test-data/ru1.epub" };
 
         if (args.length != 1 || args[0] == null || args[0].isBlank()) {
             printUsage();
