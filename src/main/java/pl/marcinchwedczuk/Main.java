@@ -64,9 +64,12 @@ public class Main {
                         logger.info("accent dictionary: {} records processed...", progress);
                     }
 
+                    // Resolve the collision by assuming the more popular word is first in the CSV dictionary
+                    if (wordsAccent.containsKey(record.get(2))) continue;
+
                     wordsAccent.put(record.get(2), record.get(3));
 
-                    String w = record.get(2);
+                    String w = record.get(2).toLowerCase();
                     String wa = record.get(3);
                     String stem = stem(w);
                     int accentPosition = wa.indexOf("'");
@@ -192,7 +195,7 @@ public class Main {
                 // Check if the node is a TextNode
                 if (node instanceof TextNode textNode) {
                     String text = textNode.text();
-                    textNode.text(addAccentsToString(text.toLowerCase(), accentDictionary));
+                    textNode.text(addAccentsToString(text, accentDictionary));
                 }
             }
 
@@ -212,18 +215,20 @@ public class Main {
         // Simple \b is not working with Unicode
         String[] parts = text.split("(?<=[\\s,.:;\"']|^)|(?=[\\s,.:;\"']|$)");
         for (String part : parts) {
+            String partLC = part.toLowerCase();
             if (part.isBlank()) {
                 output.append(part);
-            } else if (accentDictionary.wordsAccent.containsKey(part)) {
-                output.append(accentDictionary.wordsAccent.get(part));
-            } else if (accentDictionary.wordFormsAccent.containsKey(part)) {
-                output.append(accentDictionary.wordFormsAccent.get(part));
+            } else if (accentDictionary.wordsAccent.containsKey(partLC)) {
+                output.append(addAccentPreservingCasing(part, accentDictionary.wordsAccent.get(partLC)));
+            } else if (accentDictionary.wordFormsAccent.containsKey(partLC)) {
+                output.append(addAccentPreservingCasing(part, accentDictionary.wordFormsAccent.get(partLC)));
             } else {
                 // Przypadek odmiany, staramy się znaleść stem i na nim wyszukać akcent
-                String stem = stem(part);
+                String stem = stem(part).toLowerCase();
                 if (accentDictionary.heuristicalStemAccent.containsKey(stem)) {
-                    output.append(accentDictionary.heuristicalStemAccent.get(stem));
-                    output.append(part.substring(stem.length()));
+                    // output.append(accentDictionary.heuristicalStemAccent.get(stem));
+                    // output.append(part.substring(stem.length()));
+                    output.append(addAccentPreservingCasing(part, accentDictionary.heuristicalStemAccent.get(stem)));
                 } else {
                     output.append(part);
                 }
@@ -231,6 +236,12 @@ public class Main {
         }
 
         return output.toString();
+    }
+
+    private static String addAccentPreservingCasing(String originalWorld, String accentedWorld) {
+        int accentIndex = accentedWorld.indexOf('\'');
+        if (accentIndex == -1) return originalWorld;
+        return originalWorld.substring(0, accentIndex) + "'" + originalWorld.substring(accentIndex);
     }
 
     private static String readEntryAsString(InputStream reader) throws IOException {
