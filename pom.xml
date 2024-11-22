@@ -15,6 +15,7 @@
 
         <!-- dependency versions -->
         <log4j2.version>2.24.1</log4j2.version>
+        <apache-csv.version>1.10.0</apache-csv.version>
     </properties>
 
     <dependencies>
@@ -28,6 +29,11 @@
             <artifactId>log4j-core</artifactId>
             <version>${log4j2.version}</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>${apache-csv.version}</version> <!-- Check for latest version -->
         </dependency>
     </dependencies>
 
