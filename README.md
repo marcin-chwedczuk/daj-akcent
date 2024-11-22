@@ -1,6 +1,6 @@
 # Prosty skrypt który dodaje akcent w rosyjskich słowach do ksiażek w formacie EPUB
 
-Jak do działa? Uruchom program ze ścieżkądo pliku EPUB jako parameterem.
+Jak do działa? Uruchom program ze ścieżką do pliku EPUB jako parameterem.
 W tym samym katalogu zostanie utworzyony nowy plik z nazwą kończącą się na `-with-accent.epub`.
 
 Przykładowa ksiażka z dodanym akcentem:
