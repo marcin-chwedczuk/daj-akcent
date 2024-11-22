@@ -113,7 +113,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        args = new String[] { "/Users/mc/dev/daj-akcent/test-data/epub3-example.epub" };
+        args = new String[] { "/Users/mc/dev/daj-akcent/test-data/ru1.epub" };
 
         if (args.length != 1 || args[0] == null || args[0].isBlank()) {
             printUsage();
@@ -183,7 +183,7 @@ public class Main {
     private static String addAccents(String html, AccentDictionary accentDictionary) {
         // Parse the XHTML document
         Document document = Jsoup.parse(html, "",
-                html.startsWith("<?xml") ? org.jsoup.parser.Parser.xmlParser() : org.jsoup.parser.Parser.htmlParser());
+                org.jsoup.parser.Parser.xmlParser() ); // TODO: Fallback to HTML parser on error
 
         // Traverse and process all text nodes
         document.traverse(new NodeVisitor() {
@@ -192,7 +192,7 @@ public class Main {
                 // Check if the node is a TextNode
                 if (node instanceof TextNode textNode) {
                     String text = textNode.text();
-                    textNode.text(addAccentsToString(text, accentDictionary));
+                    textNode.text(addAccentsToString(text.toLowerCase(), accentDictionary));
                 }
             }
 
@@ -209,7 +209,8 @@ public class Main {
     private static String addAccentsToString(String text, AccentDictionary accentDictionary) {
         StringBuilder output = new StringBuilder(text.length());
 
-        String[] parts = text.split("\\b");
+        // Simple \b is not working with Unicode
+        String[] parts = text.split("(?<=[\\s,.:;\"']|^)|(?=[\\s,.:;\"']|$)");
         for (String part : parts) {
             if (part.isBlank()) {
                 output.append(part);
