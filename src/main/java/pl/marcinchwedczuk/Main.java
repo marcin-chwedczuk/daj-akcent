@@ -83,6 +83,7 @@ public class Main {
             public void tail(Node node, int depth) { }
         });
 
+        // TODO: Check if we can replace text with HTML in the accent dictionary
         return document.html().replaceAll("(.)@@", "<b>$1</b>");
     }
 

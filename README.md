@@ -1,18 +1,26 @@
-# Prosty skrypt który dodaje akcent w rosyjskich słowach do ksiażek w formacie EPUB
+# Prosty skrypt dodający akcenty w rosyjskich słowach do książek w formacie EPUB
 
-Jak do działa? Uruchom program ze ścieżką do pliku EPUB jako parameterem.
-W tym samym katalogu zostanie utworzyony nowy plik z nazwą kończącą się na `-with-accent.epub`.
+## Jak to działa?
 
-Przykładowa ksiażka z dodanym akcentem:
+Uruchom program, podając ścieżkę do pliku EPUB jako parametr. W tym samym katalogu zostanie utworzony nowy plik o nazwie kończącej się na `-with-accent.epub`.
+
+Przykład książki z dodanymi akcentami:  
 ![screen 1](./docs/screen1.png)
 
-Obecne ograniczenia programu:
+## Jak używać książek z akcentami na Kindle?
 
-- Program bazuje na darmowym i otwartym słowniku [openrussian.org](https://openrussian.org),
- jest to słownik tworzony przez wolontariuszy. Pewnych słów może w nim brakować, w innych akcent może być
- niepoprawnie dodany. Korzystasz na własną odpowiedzialność.
-- Dodanie akcentu sprawia że słowniki rosyjsko polskie mogą _nie działać_ poprawnie. 
- Planuję stworzyć specjalny słownik wyrazów z akcentem dla Kindla, ale zajmie mi to pewnie jeszcze trochę czasu.
- Jeżeli ktos potrzebuję i akcentu i działającego słownika to skrypt można łatwo przerobić tak żeby
- literka z akcentem była pogrubiana.
-- Program do działania wymaga JDK 21.
+1. Najpierw dodaj akcenty do pliku `.epub` za pomocą programu.
+2. Następnie użyj darmowego programu [Calibre](https://calibre-ebook.com/), aby przekonwertować plik `.epub` na `.azw` (format `.mobi` nie obsługuje pogrubiania pojedynczych liter).
+3. Wgraj plik `.azw` na Kindle i ciesz się książką z akcentami!  
+   ![screen 2](./docs/screen2.png)
+
+## Obecne ograniczenia programu
+
+- Program korzysta z darmowego i otwartego słownika [openrussian.org](https://openrussian.org), który jest tworzony przez wolontariuszy. Może się zdarzyć, że pewnych słów w nim brakuje lub że akcenty zostały dodane niepoprawnie. Korzystasz na własną odpowiedzialność.
+
+- Do działania programu wymagane jest zainstalowanie JDK 21.
+
+## Podobne programy
+
+- https://github.com/Vuizur/add-stress-to-epub
+- https://github.com/FreeLanguageTools/stress-russian-books
