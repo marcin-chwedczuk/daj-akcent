@@ -83,7 +83,7 @@ public class Main {
             public void tail(Node node, int depth) { }
         });
 
-        return document.html();
+        return document.html().replaceAll("(.)@@", "<b>$1</b>");
     }
 
     private static void deleteFileQuietly(String file) {

@@ -122,5 +122,5 @@ final class AccentDictionary {
     private static String addAccentPreservingCasing(String originalWorld, String accentedWorld) {
         int accentIndex = accentedWorld.indexOf('\'');
         if (accentIndex == -1) return originalWorld;
-        return originalWorld.substring(0, accentIndex) + "'" + originalWorld.substring(accentIndex);
+        return originalWorld.substring(0, accentIndex) + "@@" + originalWorld.substring(accentIndex);
     }}
